@@ -1,5 +1,4 @@
 <script setup lang="ts"></script>
-
 <template>
-  <main>HOME</main>
+  <main>AUTH</main>
 </template>

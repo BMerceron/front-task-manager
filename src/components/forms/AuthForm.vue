@@ -1,5 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <main>HOME</main>
+  <div class="auth-form"></div>
 </template>
+
+<style scoped></style>
