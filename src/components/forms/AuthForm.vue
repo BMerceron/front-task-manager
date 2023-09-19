@@ -4,8 +4,8 @@
     <v-card :loading="loading" title="Front Task Manager">
       <v-form validate-on="submit lazy" @submit.prevent="submitForm">
         <v-text-field
-          v-model="userName"
-          :rules="[userNameRules.required, userNameRules.min, userNameRules.max]"
+          v-model="username"
+          :rules="[usernameRules.required, usernameRules.min, usernameRules.max]"
           label="Pseudo"
         ></v-text-field>
         <v-text-field
@@ -51,7 +51,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps } from 'vue'
+import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
 const route = useRoute()
@@ -63,19 +63,13 @@ const buttonLabels = ref({
   connectAccount: 'Se connecter',
   createAccount: 'Créer mon compte'
 })
-const userName = ref('')
+const username = ref('')
 const showPassword = ref(false)
 const password = ref('')
 
-const props = defineProps({
-  credentials: {
-    type: Object
-  }
-})
-
 // rules
 const ruleRequired = (value: string) => !!value || 'Champ requis.'
-const userNameRules = {
+const usernameRules = {
   required: ruleRequired,
   min: (value: string) => value.length >= 4 || 'Minimum : 4 caractères',
   max: (value: string) => value.length <= 20 || 'Maximum : 20 caractères'
@@ -96,7 +90,7 @@ const switchForm = () => {
 const emit = defineEmits(['update:modelValue'])
 const submitForm = () => {
   let credentials = {
-    userName: userName.value,
+    username: username.value,
     password: password.value
   }
   emit('update:modelValue', credentials)
