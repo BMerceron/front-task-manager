@@ -6,9 +6,10 @@
 import { ref, watch } from 'vue'
 import AuthForm from '../components/forms/AuthForm.vue'
 import { signup, signin } from '@/api/auth'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
+const router = useRouter()
 const credentials = ref({})
 
 watch(
@@ -16,8 +17,8 @@ watch(
   (newCredentials) => {
     if (route.name === 'signup') {
       signup(newCredentials)
-        .then((res) => {
-          console.log('View res signup', res)
+        .then(() => {
+          router.push({ name: 'home' })
         })
         .catch((error) => {
           console.log('View error signup', error)
@@ -25,8 +26,8 @@ watch(
     }
     if (route.name === 'signin') {
       signin(newCredentials)
-        .then((res) => {
-          console.log('View res signin', res)
+        .then(() => {
+          router.push({ name: 'home' })
         })
         .catch((error) => {
           console.log('View error signin', error)
