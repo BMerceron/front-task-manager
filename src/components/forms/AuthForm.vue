@@ -1,23 +1,25 @@
 <template>
-  <v-sheet width="500" class="mx-auto">
+  <v-sheet width="500" class="auth-form">
     <!-- TODO: manage the loading state before change page -->
     <v-card :loading="loading" title="Front Task Manager">
       <v-form validate-on="submit lazy" @submit.prevent="submitForm">
         <v-text-field
+          :rules="[usernameRules.required]"
           v-model="username"
-          :rules="[usernameRules.required, usernameRules.min, usernameRules.max]"
           label="Pseudo"
         ></v-text-field>
         <v-text-field
+          :rules="[passwordRules.required]"
           v-model="password"
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eyeOff'"
           :type="showPassword ? 'text' : 'password'"
-          :rules="[passwordRules.required, passwordRules.min, passwordRules.max]"
           label="Mot de passe"
-          hint="At least 12 characters"
           counter
           @click:append="showPassword = !showPassword"
         ></v-text-field>
+        <div class="rules" v-for="message in messages" :key="message">
+          <p>{{ message }}</p>
+        </div>
         <v-card-actions>
           <v-btn
             :loading="loading"
@@ -51,8 +53,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, defineProps } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+
+const props = defineProps({
+  messages: {
+    type: [String]
+  }
+})
 
 const route = useRoute()
 const router = useRouter()
@@ -70,14 +78,10 @@ const password = ref('')
 // rules
 const ruleRequired = (value: string) => !!value || 'Champ requis.'
 const usernameRules = {
-  required: ruleRequired,
-  min: (value: string) => value.length >= 4 || 'Minimum : 4 caractères',
-  max: (value: string) => value.length <= 20 || 'Maximum : 20 caractères'
+  required: ruleRequired
 }
 const passwordRules = {
-  required: ruleRequired,
-  min: (value: string) => value.length >= 8 || 'Minimum : 8 caractères',
-  max: (value: string) => value.length <= 32 || 'Maximum : 32 caractères'
+  required: ruleRequired
 }
 
 // functions
@@ -97,4 +101,17 @@ const submitForm = () => {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.rules {
+  color: red;
+  font-size: 12px;
+}
+
+.auth-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+</style>

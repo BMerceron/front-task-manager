@@ -3,12 +3,7 @@
 #app {
   margin: 0 auto;
   height: 100vh;
-  padding: 2rem;
-  background-color: #ffffff;
   font-weight: normal;
-}
-body {
-  background-color: #ffffff;
 }
 
 .v-form {
