@@ -28,22 +28,20 @@ watch(
           )
         })
         .catch((error) => {
-          console.log(error)
           messages.value = error.message
         })
     }
     if (route.name === 'signin') {
       signin(newCredentials)
-        .then((res) => {
+        .then(() => {
           router.push({ name: 'home' })
-          console.log(res)
-          alert.alertSuccess(
-            'Connection réussie',
-            'Vous être maintenant connecté à votre compte. Bien joué !'
-          )
         })
-        .catch((error) => {
-          alert.alertError('Erreur', 'Le mot de passe ou le pseudo sont inccorects.')
+        .catch(() => {
+          messages.value = ['Le mot de passe ou votre indentifiant sont incorrects.']
+          alert.alertError(
+            'Création de compte réussie',
+            'Vous pouvez désormais vous connecter avec vos identifiants. Bien joué !'
+          )
         })
     }
   }

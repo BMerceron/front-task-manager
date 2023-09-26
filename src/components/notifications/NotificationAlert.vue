@@ -34,9 +34,9 @@ const handleCloseAlert = () => {
 .notification-alert {
   position: absolute;
   z-index: 999;
-  bottom: 20px;
-  left: auto;
-  width: 90%;
+  left: 25%;
+  right: 25%;
+  top: 20px;
 }
 .bounce-enter-active {
   animation: bounce-in 0.5s;

@@ -7,8 +7,6 @@ export const useAlertStore = defineStore('alert', () => {
     title: 'Error',
     text: 'Error text',
     type: 'error',
-    // color: 'red',
-    // icon:'$vuetify'  
   });
   
   const alertSuccess = (title: string, text: string) => {

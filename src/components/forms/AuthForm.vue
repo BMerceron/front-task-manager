@@ -1,7 +1,7 @@
 <template>
   <v-sheet width="500" class="auth-form">
     <!-- TODO: manage the loading state before change page -->
-    <v-card :loading="loading" title="Front Task Manager">
+    <v-card :loading="loading" title="Connexion - Front Task Manager">
       <v-form validate-on="submit lazy" @submit.prevent="submitForm">
         <v-text-field
           :rules="[usernameRules.required]"
@@ -11,7 +11,7 @@
         <v-text-field
           :rules="[passwordRules.required]"
           v-model="password"
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eyeOff'"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           :type="showPassword ? 'text' : 'password'"
           label="Mot de passe"
           counter
