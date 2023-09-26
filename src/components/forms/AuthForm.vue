@@ -1,7 +1,7 @@
 <template>
   <v-sheet width="500" class="auth-form">
     <!-- TODO: manage the loading state before change page -->
-    <v-card :loading="loading" title="Connexion - Front Task Manager">
+    <v-card class="elevation-6" :loading="loading" title="Connexion - Front Task Manager">
       <v-form validate-on="submit lazy" @submit.prevent="submitForm">
         <v-text-field
           :rules="[usernameRules.required]"
@@ -17,9 +17,16 @@
           counter
           @click:append="showPassword = !showPassword"
         ></v-text-field>
-        <div class="rules" v-for="message in messages" :key="message">
-          <p>{{ message }}</p>
-        </div>
+        <v-row v-if="messages" class="rules-container">
+          <v-col cols="1">
+            <v-icon icon="mdi-alert" />
+          </v-col>
+          <v-col cols="10">
+            <p class="rule" v-for="message in messages" :key="message">
+              {{ message }}
+            </p>
+          </v-col>
+        </v-row>
         <v-card-actions>
           <v-btn
             :loading="loading"
@@ -102,9 +109,13 @@ const submitForm = () => {
 </script>
 
 <style scoped>
-.rules {
-  color: red;
+.rules-container {
+  color: rgb(var(--v-theme-warning));
   font-size: 12px;
+}
+
+.rule {
+  margin-top: 2px;
 }
 
 .auth-form {
