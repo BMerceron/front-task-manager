@@ -9,3 +9,7 @@ const tokenCookie = useCookies(['t']);
 export const setJwtToken = (token: string) => {
   tokenCookie.set('t', token)
 }
+
+export const deleteJwtToken = () => {
+  tokenCookie.remove('t')
+}
