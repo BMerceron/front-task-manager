@@ -40,8 +40,8 @@ watch(
           user.setUser(newCredentials.username)
           router.push({ name: 'home' })
         })
-        .catch(() => {
-          messages.value = ['Le mot de passe ou votre indentifiant sont incorrects.']
+        .catch((error) => {
+          messages.value = error.message
         })
     }
   }
