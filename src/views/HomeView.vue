@@ -26,6 +26,9 @@ const disconnect = () => {
 
 <style scoped>
 .v-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 64px 20px 20px 20px;
 }
 </style>
