@@ -5,22 +5,19 @@
       <li></li>
       <li></li>
       <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
+      <li>KY</li>
+      <li>CSS</li>
+      <li>NODE</li>
+      <li>NESTjs</li>
+      <li>VUE 3</li>
+      <li>TYPESCRIPT</li>
     </ul>
   </div>
 </template>
 <script setup></script>
 <style scoped>
-* {
-  margin: 0px;
-  padding: 0px;
-}
 .area {
+  position: absolute;
   background: #121212;
   background: -webkit-linear-gradient(to left, #121212, #121212);
   width: 100%;
@@ -38,7 +35,9 @@
 
 .circles li {
   position: absolute;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   list-style: none;
   width: 20px;
   height: 20px;
@@ -79,8 +78,8 @@
 
 .circles li:nth-child(5) {
   left: 65%;
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
   animation-delay: 0s;
 }
 
@@ -100,16 +99,16 @@
 
 .circles li:nth-child(8) {
   left: 50%;
-  width: 25px;
-  height: 25px;
+  width: 100px;
+  height: 100px;
   animation-delay: 15s;
   animation-duration: 45s;
 }
 
 .circles li:nth-child(9) {
   left: 20%;
-  width: 15px;
-  height: 15px;
+  width: 125px;
+  height: 125px;
   animation-delay: 2s;
   animation-duration: 35s;
 }
@@ -119,7 +118,7 @@
   width: 150px;
   height: 150px;
   animation-delay: 0s;
-  animation-duration: 11s;
+  animation-duration: 20s;
 }
 
 @keyframes animate {
@@ -132,7 +131,7 @@
   100% {
     transform: translateY(-1000px) rotate(720deg);
     opacity: 0;
-    border-radius: 50%;
+    border-radius: 20%;
   }
 }
 </style>

@@ -1,6 +1,10 @@
 <template>
   <AppHeader :user="user" @disconnect="disconnect()" />
-  <FloatingSquares />
+  <FloatingSquares> </FloatingSquares>
+  <!-- TODO : create a réusable v-layout component for other pages -->
+  <v-layout>
+    <h1>Bonjour {{ user.username }}, que voulez vous faire aujourd'hui ?</h1>
+  </v-layout>
 </template>
 
 <script setup lang="ts">
@@ -19,3 +23,9 @@ const disconnect = () => {
   router.push({ name: 'signin' })
 }
 </script>
+
+<style scoped>
+.v-layout {
+  padding: 64px 20px 20px 20px;
+}
+</style>
