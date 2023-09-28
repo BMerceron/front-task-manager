@@ -18,10 +18,10 @@
           @click:append="showPassword = !showPassword"
         ></v-text-field>
         <v-row v-if="messages" class="rules-container">
-          <v-col cols="1">
+          <v-col class="rules-icon" cols="1">
             <v-icon icon="mdi-alert" />
           </v-col>
-          <v-col cols="10">
+          <v-col cols="11">
             <p class="rule" v-for="message in messages" :key="message">
               {{ message }}
             </p>
@@ -65,7 +65,7 @@ import { useRouter, useRoute } from 'vue-router'
 
 const props = defineProps({
   messages: {
-    type: [String]
+    type: Array<string>
   }
 })
 
@@ -113,11 +113,12 @@ const submitForm = () => {
   color: rgb(var(--v-theme-warning));
   font-size: 12px;
 }
-
-.rule {
-  margin-top: 2px;
+.rules-icon {
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
 .auth-form {
   position: absolute;
   top: 50%;

@@ -35,7 +35,6 @@ router.beforeEach((to, from, next) => {
   const matchRequiredAuth = to.matched.some(record => record.meta.requiresAuth);
   // if we go on signin page, check if we are already logged, then redirect to 'home' page
   if(to.name === 'signin' && authService.isAuthenticated()) {
-    console.log('coucou')
     next({ name: 'home'})
   }
   // if we acces on a protected page and we are note logged, redirect to 'signin' page

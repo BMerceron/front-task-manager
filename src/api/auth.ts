@@ -9,7 +9,6 @@ export const signup = async(datas: any) =>  {
       })
       return response;
   } catch (error: any) {
-    console.log('error', error)
     const errorJson = await error.response.json()
     throw errorJson
   }
