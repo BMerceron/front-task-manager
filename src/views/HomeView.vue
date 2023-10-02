@@ -8,18 +8,25 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import AppHeader from '@/components/navigation/AppHeader.vue'
 import FloatingSquares from '@/components/animations/FloatingSquares.vue'
-import { useUserProfilStore } from '@/stores/userProfil'
 import { useRouter } from 'vue-router'
+import AuthService from '@/services/authService'
 
-const userStore = useUserProfilStore()
 const router = useRouter()
+let user = ref({
+  username: ''
+})
 
-const user = userStore.getUser()
+onMounted(() => {
+  if (localStorage.username) {
+    user.value.username = localStorage.username
+  }
+})
 
 const disconnect = () => {
-  userStore.disconnect()
+  AuthService.logout()
   router.push({ name: 'signin' })
 }
 </script>

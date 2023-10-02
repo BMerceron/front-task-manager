@@ -8,13 +8,11 @@ import AuthForm from '../components/forms/AuthForm.vue'
 import AuthService from '@/services/authService'
 import { useRoute, useRouter } from 'vue-router'
 import { useAlertStore } from '@/stores/notificationAlert'
-import { useUserProfilStore } from '@/stores/userProfil'
 
 const route = useRoute()
 const router = useRouter()
 const credentials = ref({})
 const alert = useAlertStore()
-const user = useUserProfilStore()
 let messages = ref()
 
 watch(
@@ -23,7 +21,6 @@ watch(
     if (route.name === 'signup') {
       AuthService.signup(newCredentials)
         .then(() => {
-          user.setUser(newCredentials.username)
           router.push({ name: 'home' })
           alert.alertSuccess(
             'Création de compte réussie',
@@ -37,7 +34,6 @@ watch(
     if (route.name === 'signin') {
       AuthService.signin(newCredentials)
         .then(() => {
-          user.setUser(newCredentials.username)
           router.push({ name: 'home' })
         })
         .catch((error) => {

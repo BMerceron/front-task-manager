@@ -1,13 +1,11 @@
 import ky from 'ky';
 import { useCookies } from '@vueuse/integrations/useCookies'
+import { baseApiUrl } from '@/const/api'
 
 const tokenCookie = useCookies(['t']);
-const host = import.meta.env.VITE_API_HOST;
-const port = import.meta.env.VITE_API_PORT;
-const baseApiUrl = `http://${host}:${port}`;
 
 class AuthService {
-  isAuthenticated() {
+  isAuthenticated = () => {
     return tokenCookie.get('t') ? true: false
   }
 
@@ -17,7 +15,8 @@ class AuthService {
         json: datas,
         mode: 'cors',
         }).json()
-        this.setJwtToken(response)
+        this.setJwtToken(response.accessToken)
+        localStorage.setItem('username', response.username)
         return response
     } catch (error: any) {
       const errorJson = await error.response.json()
@@ -37,7 +36,13 @@ class AuthService {
       throw errorJson
     }
   }
-  
+
+  logout = () => {
+    this.deleteJwtToken();
+    localStorage.removeItem('userId')
+    localStorage.removeItem('username')
+  }
+
   setJwtToken = (token: string) => {
     tokenCookie.set('t', token)
   }
