@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import AuthForm from '../components/forms/AuthForm.vue'
-import { signup, signin } from '@/api/auth'
+import AuthService from '@/services/authService'
 import { useRoute, useRouter } from 'vue-router'
 import { useAlertStore } from '@/stores/notificationAlert'
 import { useUserProfilStore } from '@/stores/userProfil'
@@ -21,7 +21,7 @@ watch(
   () => credentials.value,
   (newCredentials: any) => {
     if (route.name === 'signup') {
-      signup(newCredentials)
+      AuthService.signup(newCredentials)
         .then(() => {
           user.setUser(newCredentials.username)
           router.push({ name: 'home' })
@@ -30,12 +30,12 @@ watch(
             'Vous pouvez désormais vous connecter avec vos identifiants. Bien joué !'
           )
         })
-        .catch((error) => {
+        .catch((error: any) => {
           messages.value = error.message
         })
     }
     if (route.name === 'signin') {
-      signin(newCredentials)
+      AuthService.signin(newCredentials)
         .then(() => {
           user.setUser(newCredentials.username)
           router.push({ name: 'home' })

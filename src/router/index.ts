@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AuthView from '@/views/AuthView.vue'
 
-import { authService } from '@/services/authService';
+import AuthService from '@/services/authService';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,11 +34,11 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const matchRequiredAuth = to.matched.some(record => record.meta.requiresAuth);
   // if we go on signin page, check if we are already logged, then redirect to 'home' page
-  if(to.name === 'signin' && authService.isAuthenticated()) {
+  if(to.name === 'signin' && AuthService.isAuthenticated()) {
     next({ name: 'home'})
   }
   // if we acces on a protected page and we are note logged, redirect to 'signin' page
-  if (matchRequiredAuth && !authService.isAuthenticated()) {
+  if (matchRequiredAuth && !AuthService.isAuthenticated()) {
     next({ name: 'signin' });
   } else {
     next();

@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { deleteJwtToken } from '@/api/client'
+import AuthService from '@/services/authService'
 
 export const useUserProfilStore = defineStore('userProfil', () => {
   const state = ref({
@@ -8,12 +8,13 @@ export const useUserProfilStore = defineStore('userProfil', () => {
   });
   
   const disconnect = () => {
-    deleteJwtToken();
+    AuthService.deleteJwtToken();
     state.value.username = ''
   }
 
   const setUser = (username: string) => {
     state.value.username = username;
+    sessionStorage.setItem('user', state.value.username)
   }
 
   const getUser = () => {

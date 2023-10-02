@@ -1,20 +1,17 @@
 <template>
   <div class="area">
     <ul class="circles">
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li>KY</li>
-      <li>CSS</li>
-      <li>NODE</li>
-      <li>NESTjs</li>
-      <li>VUE 3</li>
-      <li>TYPESCRIPT</li>
+      <li v-for="techno in technos" :key="techno">
+        {{ techno }}
+      </li>
     </ul>
   </div>
 </template>
-<script setup></script>
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const technos = ref(['', '', '', '', 'KY', 'CSS', 'NODE', 'NESTjs', 'VUE 3', 'TYPESCRIPT'])
+</script>
 <style scoped>
 .area {
   position: absolute;
