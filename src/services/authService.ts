@@ -1,6 +1,7 @@
 import ky from 'ky';
 import { useCookies } from '@vueuse/integrations/useCookies'
 import { baseApiUrl } from '@/const/api'
+import type { Authentication, LoginResponse, ErrorMessages } from '@/types/authentication.type';
 
 const tokenCookie = useCookies(['t']);
 
@@ -9,9 +10,9 @@ class AuthService {
     return tokenCookie.get('t') ? true: false
   }
 
-  signin = async(datas: any) =>  {
+  signin = async(datas: Authentication) =>  {
     try {
-      const response: any = await ky.post(baseApiUrl+'/auth/signin', {
+      const response: LoginResponse = await ky.post(baseApiUrl+'/auth/signin', {
         json: datas,
         mode: 'cors',
         }).json()
@@ -19,12 +20,12 @@ class AuthService {
         localStorage.setItem('username', response.username)
         return response
     } catch (error: any) {
-      const errorJson = await error.response.json()
+      const errorJson: ErrorMessages = await error.response.json()
       throw errorJson
     }
   }
 
-  signup = async(datas: any) =>  {
+  signup = async(datas: Authentication) =>  {
     try {
       const response: any = await ky.post(baseApiUrl+'/auth/signup', {
         json: datas,
@@ -32,7 +33,7 @@ class AuthService {
         })
         return response;
     } catch (error: any) {
-      const errorJson = await error.response.json()
+      const errorJson: ErrorMessages = await error.response.json()
       throw errorJson
     }
   }

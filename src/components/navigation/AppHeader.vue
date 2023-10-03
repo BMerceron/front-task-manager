@@ -4,7 +4,7 @@
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
     </template>
 
-    <v-app-bar-title>{{ user?.username }}</v-app-bar-title>
+    <v-app-bar-title data-testId="app-bar-username">{{ user?.username }}</v-app-bar-title>
 
     <template v-slot:append>
       <v-btn icon="mdi-power" @click="disconnect"></v-btn>

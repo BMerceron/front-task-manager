@@ -4,11 +4,14 @@
     <v-card class="elevation-6" :loading="loading" title="Connexion - Front Task Manager">
       <v-form validate-on="submit lazy" @submit.prevent="submitForm">
         <v-text-field
+          data-testid="username-input"
           :rules="[usernameRules.required]"
           v-model="username"
           label="Pseudo"
+          counter
         ></v-text-field>
         <v-text-field
+          data-testid="password-input"
           :rules="[passwordRules.required]"
           v-model="password"
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -22,13 +25,14 @@
             <v-icon icon="mdi-alert" />
           </v-col>
           <v-col cols="11">
-            <p class="rule" v-for="message in messages" :key="message">
+            <p data-testid="error-message" class="rule" v-for="message in messages" :key="message">
               {{ message }}
             </p>
           </v-col>
         </v-row>
         <v-card-actions>
           <v-btn
+            :data-testid="'button-input-' + String(route.name)"
             :loading="loading"
             color="primary"
             size="x-large"
@@ -43,6 +47,7 @@
         </v-card-actions>
         <v-card-actions>
           <v-btn
+            data-testid="button-input-switch"
             :loading="loading"
             size="x-large"
             variant="flat"
@@ -93,6 +98,8 @@ const passwordRules = {
 
 // functions
 const switchForm = () => {
+  username.value = ''
+  password.value = ''
   if (route.name === 'signin') return router.push({ name: 'signup' })
   if (route.name === 'signup') return router.push({ name: 'signin' })
 }
