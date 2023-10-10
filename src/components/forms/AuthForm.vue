@@ -65,7 +65,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps } from 'vue'
+import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
 const props = defineProps({

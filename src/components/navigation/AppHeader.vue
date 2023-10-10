@@ -13,8 +13,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps } from 'vue'
-
 const props = defineProps({
   user: {
     type: Object
