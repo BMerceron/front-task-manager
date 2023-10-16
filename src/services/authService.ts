@@ -1,7 +1,8 @@
 import ky from 'ky';
 import { useCookies } from '@vueuse/integrations/useCookies'
 import { baseApiUrl } from '@/const/api'
-import type { Authentication, LoginResponse, ErrorMessages } from '@/types/authentication.type';
+import type { Authentication, LoginResponse } from '@/types/authentication.type'
+import type { ErrorMessages } from '@/types/errors.type'
 
 const tokenCookie = useCookies(['t']);
 
@@ -45,11 +46,15 @@ class AuthService {
   }
 
   setJwtToken = (token: string) => {
-    tokenCookie.set('t', token)
+    return tokenCookie.set('t', token)
+  }
+
+  getJwtToken = () => {
+    return tokenCookie.get('t')
   }
 
   deleteJwtToken = () => {
-    tokenCookie.remove('t')
+    return tokenCookie.remove('t')
   }
 }
 

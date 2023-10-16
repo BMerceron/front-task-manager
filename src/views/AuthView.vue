@@ -8,7 +8,8 @@ import AuthForm from '../components/forms/AuthForm.vue'
 import AuthService from '@/services/authService'
 import { useRoute, useRouter } from 'vue-router'
 import { useAlertStore } from '@/stores/notificationAlert'
-import type { Authentication, ErrorMessages } from '@/types/authentication.type'
+import type { Authentication } from '@/types/authentication.type'
+import type { ErrorMessages } from '@/types/errors.type'
 
 const route = useRoute()
 const router = useRouter()

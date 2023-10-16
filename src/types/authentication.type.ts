@@ -7,7 +7,3 @@ export type LoginResponse = {
   accessToken: string;
   username: string;
 }
-
-export type ErrorMessages = {
-  message: string[]
-}
