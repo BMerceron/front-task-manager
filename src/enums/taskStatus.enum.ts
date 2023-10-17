@@ -1,5 +1,9 @@
-export enum taskStatus {
-  OPEN= 'OPEN',
-  IN_PROGRES= "IN_PROGRESS",
-  DONE = 'DONE',
+enum taskStatus {
+OPEN = 'OPEN',
+IN_PROGRESS = "IN_PROGRESS",
+DONE = 'DONE',
+}
+
+export {
+  taskStatus
 }

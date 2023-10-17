@@ -1,5 +1,8 @@
 <template>
-  <v-layout> <TasksTable :tasks="tasks" /></v-layout>
+  <v-layout>
+    <v-btn><v-icon icon="mdi-plus" /></v-btn>
+    <TasksTable :tasks="tasks" />
+  </v-layout>
 </template>
 
 <script setup lang="ts">
@@ -9,8 +12,8 @@ import TaskService from '@/services/taskService'
 
 const tasks = ref()
 const filters = ref({
-  search: 'cd',
-  status: 'cd'
+  search: 'c',
+  status: 'v'
 })
 
 onMounted(() => {
@@ -21,6 +24,6 @@ onMounted(() => {
 </script>
 <style scoped>
 .v-layout {
-  padding: 72px 20px 20px 20px;
+  padding: 86px 20px 20px 20px;
 }
 </style>
