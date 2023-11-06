@@ -34,6 +34,26 @@ class TaskService {
       throw errorJson
     }
   }
+
+  updateTask = async(taskForm: Task) => {
+    const taskId = taskForm.id
+    const taskFormToUpdate = {
+      title: taskForm.title,
+      description: taskForm.description,
+      status: taskForm.status
+    }
+    try {
+      const task = await ky.patch(baseApiUrl+'/tasks/'+taskId, {
+        mode: requestMode,
+        json: taskFormToUpdate,
+        headers: getJwtToken()
+      }).json()
+        return task
+    } catch (error: any) {
+      const errorJson: ErrorMessages = await error.response.json()
+      throw errorJson
+    }
+  }
 }
 
 export default new TaskService()

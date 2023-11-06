@@ -65,7 +65,8 @@ const dialog = ref(props.showModal)
 const taskFormValues = reactive({
   id: props.modalContext?.task.id,
   title: props.modalContext?.task.title,
-  description: props.modalContext?.task.description
+  description: props.modalContext?.task.description,
+  status: props.modalContext?.task.status
 })
 
 // TODO : Find why props dont be load in reactive object before modal is rendering
@@ -75,6 +76,7 @@ onUpdated(() => {
   taskFormValues.id = props.modalContext?.task.id
   taskFormValues.title = props.modalContext?.task.title
   taskFormValues.description = props.modalContext?.task.description
+  taskFormValues.status = props.modalContext?.task.status
 })
 
 // rules

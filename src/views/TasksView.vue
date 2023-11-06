@@ -52,6 +52,9 @@ const createTask = (taskForm: Task) => {
 }
 
 const updateTask = (taskForm: Task) => {
+  TaskService.updateTask(taskForm).then(() => {
+    getTasks()
+  })
   console.log('update the task !', taskForm)
 }
 </script>

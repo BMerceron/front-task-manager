@@ -26,8 +26,6 @@ const props = defineProps({
   title: String
 })
 
-const showModal = ref(props.showModal)
-
 const emit = defineEmits(['update:showModal'])
 
 const showUpdateModal = () => {
