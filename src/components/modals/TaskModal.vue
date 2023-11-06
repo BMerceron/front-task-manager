@@ -4,7 +4,9 @@
 			<v-dialog v-model="dialog" width="1024">
 				<v-card>
 					<v-card-title>
-						<span class="text-h5">Créer une nouvelle tâche</span>
+						<span class="text-h5">
+              {{ modalContext?.context == "CREATE" ? "Créer une nouvelle tâche" : "Modifier la tâche"}}
+            </span>
 					</v-card-title>
 					<v-form validate-on="submit lazy" @submit.prevent="submitForm">
 						<v-card-text>
@@ -37,7 +39,7 @@
 								Annuler
 							</v-btn>
 							<v-btn type="submit" color="blue-darken-1" variant="text">
-								Créer
+                {{ modalContext?.context == "CREATE" ? "Créer" : "Modifier"}}
 							</v-btn>
 						</v-card-actions>
 					</v-form>
@@ -53,20 +55,31 @@ import { ref,reactive, onUpdated } from 'vue'
 const props = defineProps({
 	showModal: {
 		type: Boolean,
+	},
+	modalContext: {
+		type: Object
 	}
 })
+
 const dialog = ref(props.showModal)
 const taskFormValues = reactive({
-  title: '',
-  description: ''
+  id: props.modalContext?.task.id,
+  title: props.modalContext?.task.title,
+  description: props.modalContext?.task.description
 })
 
+// TODO : Find why props dont be load in reactive object before modal is rendering
 onUpdated(() => {
+  console.log('updated :', taskFormValues)
 	dialog.value = props.showModal
+  taskFormValues.id = props.modalContext?.task.id
+  taskFormValues.title = props.modalContext?.task.title
+  taskFormValues.description = props.modalContext?.task.description
 })
 
 // rules
 const ruleRequired = (value: string) => !!value || 'Champ requis.'
+
 const titleRules = {
 	required: ruleRequired
 }
@@ -77,6 +90,7 @@ const descriptionRules = {
 const emit = defineEmits(['update:showModal', 'update:modelValue'])
 
 const submitForm = () => {
+  console.log('modal values :', taskFormValues)
   emit('update:modelValue', taskFormValues)
 	emit('update:showModal')
 }

@@ -1,24 +1,49 @@
 <template>
   <div class="tasks-table">
-    <TasksStatusSection :tasksFiltered="getTasksFiltered(taskStatus.OPEN)" title="A faire" />
+    <TasksStatusSection 
+      :tasksFiltered="getTasksFiltered(taskStatus.OPEN)"
+      v-model:showModal="showModal"
+      @update:show-modal="showUpdateModal"
+      title="A faire" />
     <TasksStatusSection
       :tasksFiltered="getTasksFiltered(taskStatus.IN_PROGRESS)"
+      v-model:showModal="showModal"
+      @update:show-modal="showUpdateModal"
       title="En cours"
     />
-    <TasksStatusSection :tasksFiltered="getTasksFiltered(taskStatus.DONE)" title="Terminées" />
+    <TasksStatusSection 
+      :tasksFiltered="getTasksFiltered(taskStatus.DONE)"
+      v-model:showModal="showModal"
+      @update:show-modal="showUpdateModal"
+      title="Terminées" 
+    />
+    <TaskModal 
+      v-model:showModal="showModal" 
+      v-model:modal-context="modalContext" 
+      @update:model-value="updateTask"
+    />
   </div>
 </template>
 <script setup lang="ts">
+import { defineEmits, ref, reactive } from 'vue';
 import TasksStatusSection from '@/components/tables/TasksStatusSection.vue'
 import { taskStatus } from '@/enums/taskStatus.enum'
-import { useDraggable } from '@vueuse/core';
+import TaskModal from '../modals/TaskModal.vue';
+import { taskContexts } from '@/enums/taskContexts.enum'
+import type { Task } from '@/types/task.type'
 
 const props = defineProps({
   tasks: {
     type: Array<Object>,
     default: [],
     required: true
-  }
+  },
+})
+
+const showModal = ref(false)
+const modalContext = reactive({
+  context : taskContexts.UPDATE,
+  task: {}
 })
 
 const getTasksFiltered = (status: string) => {
@@ -30,6 +55,18 @@ const getTasksFiltered = (status: string) => {
     }
   })
   return tasksFilteredByStatus
+}
+
+const showUpdateModal = (task: Task) => {
+  modalContext.task = task
+  showModal.value=true
+}
+
+const emit = defineEmits(['update:modelValue'])
+
+const updateTask = (taskToUpdate: Task) => {
+  console.log('data table : ', taskToUpdate)
+  emit('update:modelValue', taskToUpdate)
 }
 </script>
 <style scoped>

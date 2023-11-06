@@ -1,17 +1,27 @@
 <template>
   <v-layout>
-    <v-btn @click="showModal=true"><v-icon icon="mdi-plus"/></v-btn>
-    <TasksTable :tasks="tasks" />
-    <TaskModal v-model:showModal="showModal" @update:model-value="updateModal"/>
+    <v-btn @click="showModal=true">
+      <v-icon icon="mdi-plus"/>
+    </v-btn>
+    <TasksTable 
+      :tasks="tasks" 
+      @update:model-value="updateTask"
+    />
+    <TaskModal 
+      v-model:showModal="showModal" 
+      v-model:modal-context="modalContext" 
+      @update:model-value="createTask"
+    />
   </v-layout>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref,reactive, onMounted } from 'vue'
 import TasksTable from '@/components/tables/TasksTable.vue'
 import TaskModal from '@/components/modals/TaskModal.vue'
 import TaskService from '@/services/taskService'
 import type { Task } from '@/types/task.type'
+import { taskContexts } from '@/enums/taskContexts.enum'
 
 const tasks = ref()
 const filters = ref({
@@ -20,6 +30,10 @@ const filters = ref({
 })
 
 const showModal = ref(false)
+const modalContext = reactive({
+  context : taskContexts.CREATE,
+  task: {}
+})
 
 onMounted(() => {
   getTasks()
@@ -31,10 +45,14 @@ const getTasks = () => {
   })
 }
 
-const updateModal = (taskForm: Task) => {
+const createTask = (taskForm: Task) => {
   TaskService.addTask(taskForm).then(()=> {
     getTasks()
   })
+}
+
+const updateTask = (taskForm: Task) => {
+  console.log('update the task !', taskForm)
 }
 </script>
 <style scoped>

@@ -3,24 +3,36 @@
     <div class="task-title-container">
       <div class="task-title">{{ task.title }}</div>
       <div class="task-icon-edit">
-        <v-btn>
+        <v-btn @click="showUpdateModal">
           <v-icon icon="mdi-pencil" />
         </v-btn>
       </div>
     </div>
-
     <div class="task-description">{{ task.description }}</div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { defineEmits, ref } from 'vue';
+
 const props = defineProps({
   task: {
     type: Object,
     required: true
   },
+  showModal: {
+    type: Boolean
+  },
   title: String
 })
+
+const showModal = ref(props.showModal)
+
+const emit = defineEmits(['update:showModal'])
+
+const showUpdateModal = () => {
+  emit('update:showModal', props.task)
+}
 </script>
 
 <style scoped>
