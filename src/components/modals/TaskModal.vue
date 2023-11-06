@@ -1,0 +1,84 @@
+<template>
+	<template>
+		<v-row justify="center">
+			<v-dialog v-model="dialog" width="1024">
+				<v-card>
+					<v-card-title>
+						<span class="text-h5">Créer une nouvelle tâche</span>
+					</v-card-title>
+					<v-form validate-on="submit lazy" @submit.prevent="submitForm">
+						<v-card-text>
+							<v-container>
+								<v-row>
+									<v-col cols="12" sm="6" md="4">
+										<v-text-field 
+                      label="Titre de la tâche" 
+                      v-model="taskFormValues.title" 
+                      :rules="[titleRules.required]"
+											required
+                    ></v-text-field>
+									</v-col>
+									<v-col cols="12" sm="6" md="4">
+										<v-text-field 
+                      label="Description" 
+                      hint="Voilà ma super tâche ..." 
+                      v-model="taskFormValues.description"
+										  :rules="[descriptionRules.required]" 
+                      required
+                    >
+                    </v-text-field>
+									</v-col>
+								</v-row>
+							</v-container>
+						</v-card-text>
+						<v-card-actions>
+							<v-spacer></v-spacer>
+							<v-btn color="blue-darken-1" variant="text" @click="emit('update:showModal')">
+								Annuler
+							</v-btn>
+							<v-btn type="submit" color="blue-darken-1" variant="text">
+								Créer
+							</v-btn>
+						</v-card-actions>
+					</v-form>
+				</v-card>
+			</v-dialog>
+		</v-row>
+	</template>
+</template>
+
+<script setup lang="ts">
+import { ref,reactive, onUpdated } from 'vue'
+
+const props = defineProps({
+	showModal: {
+		type: Boolean,
+	}
+})
+const dialog = ref(props.showModal)
+const taskFormValues = reactive({
+  title: '',
+  description: ''
+})
+
+onUpdated(() => {
+	dialog.value = props.showModal
+})
+
+// rules
+const ruleRequired = (value: string) => !!value || 'Champ requis.'
+const titleRules = {
+	required: ruleRequired
+}
+const descriptionRules = {
+	required: ruleRequired
+}
+
+const emit = defineEmits(['update:showModal', 'update:modelValue'])
+
+const submitForm = () => {
+  emit('update:modelValue', taskFormValues)
+	emit('update:showModal')
+}
+</script>
+<style scoped></style>

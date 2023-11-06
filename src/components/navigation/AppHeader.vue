@@ -8,7 +8,7 @@
       data-testId="app-bar-username"
       class="username"
       @click="router.push({ name: 'home' })"
-      >{{ user?.username }}</v-app-bar-title
+      >{{ username}}</v-app-bar-title
     >
 
     <template v-slot:append>
@@ -35,12 +35,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 
-const props = defineProps({
-  user: {
-    type: Object
+const username = ref('')
+
+onMounted(() => {
+  if (localStorage.username) {
+    username.value = localStorage.username
   }
 })
 

@@ -9,9 +9,9 @@
   </div>
 </template>
 <script setup lang="ts">
-import { defineProps } from 'vue'
 import TasksStatusSection from '@/components/tables/TasksStatusSection.vue'
 import { taskStatus } from '@/enums/taskStatus.enum'
+import { useDraggable } from '@vueuse/core';
 
 const props = defineProps({
   tasks: {

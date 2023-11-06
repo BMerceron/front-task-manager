@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import TaskCard from '@/components/tables/taskCard.vue'
+import TaskCard from '@/components/tables/TaskCard.vue';
 const props = defineProps({
   tasksFiltered: {
     default: [],

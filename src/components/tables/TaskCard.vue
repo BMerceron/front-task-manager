@@ -1,7 +1,15 @@
 <template>
   <div class="task-card">
-    <div>{{ task.title }}</div>
-    <div>{{ task.description }}</div>
+    <div class="task-title-container">
+      <div class="task-title">{{ task.title }}</div>
+      <div class="task-icon-edit">
+        <v-btn>
+          <v-icon icon="mdi-pencil" />
+        </v-btn>
+      </div>
+    </div>
+
+    <div class="task-description">{{ task.description }}</div>
   </div>
 </template>
 
@@ -17,7 +25,27 @@ const props = defineProps({
 
 <style scoped>
 .task-card {
+  margin-top: 12px;
   padding: 12px;
   background-color: #121212;
+  border-radius: 10px;
+  cursor: grab;
+}
+.task-title-container {
+  display: flex;
+  width: 100%
+}
+.task-title {
+  font-size: 18px;
+  font-weight: 800;
+  align-self: stretch;
+}
+.task-icon-edit {
+  margin-left: auto;
+  font-size: 12px;
+  cursor: pointer;
+}
+.task-icon-edit:hover {
+  
 }
 </style>

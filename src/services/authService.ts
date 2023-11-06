@@ -1,23 +1,21 @@
 import ky from 'ky';
-import { useCookies } from '@vueuse/integrations/useCookies'
-import { baseApiUrl } from '@/const/api'
+import { setJwtToken, getJwtToken, deleteJwtToken } from './jwtToken';
+import { baseApiUrl, requestMode } from '@/const/api'
 import type { Authentication, LoginResponse } from '@/types/authentication.type'
 import type { ErrorMessages } from '@/types/errors.type'
 
-const tokenCookie = useCookies(['t']);
-
 class AuthService {
   isAuthenticated = () => {
-    return tokenCookie.get('t') ? true: false
+    return getJwtToken() ? true: false
   }
 
   signin = async(datas: Authentication) =>  {
     try {
       const response: LoginResponse = await ky.post(baseApiUrl+'/auth/signin', {
+        mode: requestMode,
         json: datas,
-        mode: 'cors',
-        }).json()
-        this.setJwtToken(response.accessToken)
+      }).json()
+        setJwtToken(response.accessToken)
         localStorage.setItem('username', response.username)
         return response
     } catch (error: any) {
@@ -29,9 +27,10 @@ class AuthService {
   signup = async(datas: Authentication) =>  {
     try {
       const response: any = await ky.post(baseApiUrl+'/auth/signup', {
+        mode: requestMode,
         json: datas,
-        mode: 'cors',
-        })
+        headers: getJwtToken()
+      })
         return response;
     } catch (error: any) {
       const errorJson: ErrorMessages = await error.response.json()
@@ -40,21 +39,9 @@ class AuthService {
   }
 
   logout = () => {
-    this.deleteJwtToken();
+    deleteJwtToken();
     localStorage.removeItem('userId')
     localStorage.removeItem('username')
-  }
-
-  setJwtToken = (token: string) => {
-    return tokenCookie.set('t', token)
-  }
-
-  getJwtToken = () => {
-    return tokenCookie.get('t')
-  }
-
-  deleteJwtToken = () => {
-    return tokenCookie.remove('t')
   }
 }
 
