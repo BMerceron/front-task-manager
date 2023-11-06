@@ -38,6 +38,12 @@
 							<v-btn color="blue-darken-1" variant="text" @click="emit('update:showModal')">
 								Annuler
 							</v-btn>
+              <v-btn 
+                v-if="modalContext?.context == 'UPDATE'"
+                @click="deleteTask"
+                color="blue-darken-1" variant="text">
+                Supprimer
+							</v-btn>
 							<v-btn type="submit" color="blue-darken-1" variant="text">
                 {{ modalContext?.context == "CREATE" ? "Créer" : "Modifier"}}
 							</v-btn>
@@ -71,7 +77,6 @@ const taskFormValues = reactive({
 
 // TODO : Find why props dont be load in reactive object before modal is rendering
 onUpdated(() => {
-  console.log('updated :', taskFormValues)
 	dialog.value = props.showModal
   taskFormValues.id = props.modalContext?.task.id
   taskFormValues.title = props.modalContext?.task.title
@@ -89,12 +94,16 @@ const descriptionRules = {
 	required: ruleRequired
 }
 
-const emit = defineEmits(['update:showModal', 'update:modelValue'])
+const emit = defineEmits(['update:showModal', 'update:modelValue', 'deleteTask'])
 
 const submitForm = () => {
-  console.log('modal values :', taskFormValues)
   emit('update:modelValue', taskFormValues)
 	emit('update:showModal')
+}
+
+const deleteTask = () => {
+  emit('deleteTask', taskFormValues.id)
+  emit('update:showModal')
 }
 </script>
 <style scoped></style>

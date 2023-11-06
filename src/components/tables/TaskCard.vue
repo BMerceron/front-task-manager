@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits, ref } from 'vue';
+import { defineEmits } from 'vue';
 
 const props = defineProps({
   task: {
@@ -54,8 +54,5 @@ const showUpdateModal = () => {
   margin-left: auto;
   font-size: 12px;
   cursor: pointer;
-}
-.task-icon-edit:hover {
-  
 }
 </style>

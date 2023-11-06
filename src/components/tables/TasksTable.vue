@@ -21,6 +21,7 @@
       v-model:showModal="showModal" 
       v-model:modal-context="modalContext" 
       @update:model-value="updateTask"
+      @delete-task="deleteTask"
     />
   </div>
 </template>
@@ -62,11 +63,14 @@ const showUpdateModal = (task: Task) => {
   showModal.value=true
 }
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'deleteTask'])
 
 const updateTask = (taskToUpdate: Task) => {
-  console.log('data table : ', taskToUpdate)
   emit('update:modelValue', taskToUpdate)
+}
+
+const deleteTask = (taskId: string) => {
+  emit('deleteTask', taskId)
 }
 </script>
 <style scoped>

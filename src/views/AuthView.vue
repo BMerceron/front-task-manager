@@ -15,7 +15,7 @@ const route = useRoute()
 const router = useRouter()
 const credentials = ref()
 const alert = useAlertStore()
-let messages = ref()
+const messages = ref()
 
 watch(
   () => credentials.value,

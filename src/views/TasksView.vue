@@ -6,6 +6,7 @@
     <TasksTable 
       :tasks="tasks" 
       @update:model-value="updateTask"
+      @delete-task="deleteTask"
     />
     <TaskModal 
       v-model:showModal="showModal" 
@@ -22,6 +23,7 @@ import TaskModal from '@/components/modals/TaskModal.vue'
 import TaskService from '@/services/taskService'
 import type { Task } from '@/types/task.type'
 import { taskContexts } from '@/enums/taskContexts.enum'
+import type { ErrorMessages } from '@/types/errors.type'
 
 const tasks = ref()
 const filters = ref({
@@ -34,6 +36,7 @@ const modalContext = reactive({
   context : taskContexts.CREATE,
   task: {}
 })
+const messages = ref()
 
 onMounted(() => {
   getTasks()
@@ -49,13 +52,27 @@ const createTask = (taskForm: Task) => {
   TaskService.addTask(taskForm).then(()=> {
     getTasks()
   })
+  .catch((error: ErrorMessages) => {
+    messages.value = error.message
+  })
 }
 
 const updateTask = (taskForm: Task) => {
   TaskService.updateTask(taskForm).then(() => {
     getTasks()
   })
-  console.log('update the task !', taskForm)
+  .catch((error: ErrorMessages) => {
+    messages.value = error.message
+  })
+}
+
+const deleteTask = (taskId: string) => {
+  TaskService.deleteTask(taskId).then(() => {
+    getTasks()
+  })
+  .catch((error: ErrorMessages) => {
+    messages.value = error.message
+  })
 }
 </script>
 <style scoped>

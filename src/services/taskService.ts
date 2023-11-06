@@ -54,6 +54,18 @@ class TaskService {
       throw errorJson
     }
   }
+  deleteTask = async(taskId: string) => {
+    try {
+      const task = await ky.delete(baseApiUrl+'/tasks/'+taskId, {
+        mode: requestMode,
+        headers: getJwtToken()
+      }).json()
+        return task
+    } catch (error: any) {
+      const errorJson: ErrorMessages = await error.response.json()
+      throw errorJson
+    }
+  }
 }
 
 export default new TaskService()

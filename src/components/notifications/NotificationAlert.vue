@@ -34,7 +34,7 @@ const handleCloseAlert = () => {
   z-index: 999;
   left: 25%;
   right: 25%;
-  top: 20px;
+  bottom: 20px;
 }
 .bounce-enter-active {
   animation: bounce-in 0.5s;

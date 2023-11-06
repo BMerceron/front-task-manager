@@ -3,13 +3,16 @@
     <div class="section-title">
       <p>{{ title }}</p>
     </div>
-    <div>
-      <TaskCard 
+    <div v-if="tasksFiltered.length">
+      <TaskCard
         v-for="task in tasksFiltered" 
         :key="task" :task="task" 
         :showModal="showModal"
         @update:show-modal="showUpdateModal"
       />
+    </div>
+    <div v-else class="none-task-section">
+      <div class="none-task">Aucune tâche.</div>
     </div>
   </div>
 </template>
@@ -48,5 +51,16 @@ const showUpdateModal = (taskToUpdate: Task) => {
   padding: 12px;
   border-radius: 10px;
   color: #ffff;
+}
+.none-task-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 95%;
+  width: 100%;
+}
+.none-task {
+  margin-right: auto;
+  margin-left: auto;
 }
 </style>
